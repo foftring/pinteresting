@@ -35,14 +35,16 @@ class PinsController < ApplicationController
         redirect_to @pin, notice: 'Pin was successfully updated.'
       else
         render :edit
-      end
+      
     end
   end
 
   def destroy
-    @pin.destroy
-      redirect_to pins_url, notice: 'Pin was successfully destroyed.'
+    if @pin.destroy
+   redirect_to @pin, :notice => "Your post has been deleted"
+   end
   end
+end
 
   private
     def set_pin
@@ -56,6 +58,6 @@ class PinsController < ApplicationController
     end
 
     def pin_params
-      params.require(:pin).permit(:description)
+      params.require(:pin).permit(:description, :image)
     end
 
